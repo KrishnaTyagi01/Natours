@@ -1,0 +1,40 @@
+*,
+*::after,
+*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html{
+    /* font-size: 10px; */
+    font-size: 62.5%;  /* default font-size of browser = 16px to make it 10 we take 62.5% of 16px. It's helpful when user change the default size of browser, so all our font will be changed and not hardcoded wrt to 10px as done above */
+
+    /* 
+        We have to put tab-port after tab-land because the size of tab-land > tab-port so it will not conflict. for eg at width 500px it will be both under 1200px and 900px, but we want it's font setting to be applied acc to under 900px. But if we declare query of 1200px after 900px then it will apply the latest condition i.e 1200px
+    */
+
+    @include respond(tab-land){  //width < 1200 ?
+        font-size: 56.25%;         //1rem = 9px, 9/16 = 56.25%
+    }
+    @include respond(tab-port){  //width < 900 ?
+        font-size: 50%;         //1rem = 8px, 8/16 = 50%
+    }
+    @include respond(big-desktop){
+        font-size: 75%;            //1rem = 12px, 12/16 = 75
+    }
+}
+
+body{
+    box-sizing: border-box;
+    padding:3rem;
+
+    @include respond(tab-port){  
+      padding: 0;
+    }
+}
+
+::selection{
+    background-color: $color-primary;
+    color: $color-white;
+}
